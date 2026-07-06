@@ -2,9 +2,9 @@
 <html lang="sl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b0d" />
   <title>Cupra Garage</title>
-  <meta name="theme-color" content="#0b0f12" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -12,86 +12,112 @@
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <div class="logo-mark">▲</div>
-        <div><strong>CUPRA</strong><span>GARAGE</span></div>
+        <div class="brand-mark">▲</div>
+        <div>
+          <div class="brand-title">CUPRA</div>
+          <div class="brand-sub">GARAGE</div>
+        </div>
       </div>
-      <nav>
-        <button class="nav active" data-view="dashboard">Dashboard</button>
-        <button class="nav" data-view="fuel">Tankanja</button>
-        <button class="nav" data-view="service">Servisi</button>
-        <button class="nav" data-view="costs">Stroški</button>
-        <button class="nav" data-view="trips">Izleti</button>
-        <button class="nav" data-view="settings">Nastavitve</button>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard">Dashboard</button>
+        <button class="nav-item" data-view="fuel">Tankanja</button>
+        <button class="nav-item" data-view="service">Servisi</button>
+        <button class="nav-item" data-view="costs">Stroški</button>
+        <button class="nav-item" data-view="trips">Izleti</button>
+        <button class="nav-item" data-view="settings">Nastavitve</button>
       </nav>
-      <div class="vehicle-card">
-        <span>MOJ AVTO</span>
+
+      <div class="car-card">
+        <div class="eyebrow">Moj avto</div>
         <strong>Formentor VZ 310 4Drive</strong>
-        <small>VSSZZZKM8PR084364</small>
-        <small>Nakup: 05.06.2026 / 41.100 km</small>
+        <span>VSSZZZKM8PR084364</span>
+        <span>Nakup: 05.06.2026 / 41.100 km</span>
       </div>
     </aside>
 
-    <main>
+    <main class="main">
       <section class="hero card">
+        <input id="heroUpload" type="file" accept="image/*" hidden />
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-          <p>DOBRODOŠEL, BINE</p>
+          <p class="eyebrow">Dobrodošel, Bine</p>
           <h1>CUPRA GARAGE</h1>
           <h2>Formentor VZ 310 4Drive</h2>
-          <button id="openFuel" class="primary">+ Novo tankanje</button>
-        </div>
-        <div class="status-pill">☁ Google Sheets ready</div>
-      </section>
-
-      <section id="dashboard" class="view active">
-        <div class="stats-grid">
-          <div class="stat card"><span>Trenutni KM</span><strong id="statKm">41.100</strong><small>km</small></div>
-          <div class="stat card"><span>Povprečna poraba</span><strong id="statAvg">—</strong><small>l/100 km</small></div>
-          <div class="stat card"><span>Skupni stroški</span><strong id="statCost">0 €</strong><small>gorivo + stroški</small></div>
-          <div class="stat card"><span>Naslednji servis</span><strong>50.000</strong><small>Haldex + diferencial</small></div>
-        </div>
-        <div class="content-grid">
-          <div class="card panel">
-            <div class="panel-head"><h3>Zadnja tankanja</h3><button class="ghost" data-view-target="fuel">Poglej vse</button></div>
-            <div id="fuelList" class="list"></div>
-          </div>
-          <div class="card panel">
-            <div class="panel-head"><h3>Poraba</h3><span>zadnji vnosi</span></div>
-            <canvas id="fuelChart" width="600" height="280"></canvas>
-          </div>
-          <div class="card panel wide">
-            <div class="panel-head"><h3>Servisni plan</h3><span>tvoj plan</span></div>
-            <div class="timeline">
-              <div><b>41.100 km</b><span>Nakup vozila</span></div>
-              <div><b>50.000 km</b><span>Haldex olje + zadnji diferencial</span></div>
-              <div><b>60.000 km</b><span>DSG, svečke, olje, filtri</span></div>
-            </div>
+          <div class="hero-actions">
+            <button class="primary" id="openFuelForm">+ Novo tankanje</button>
+            <button class="ghost" id="uploadHero">Naloži mojo Cupro</button>
           </div>
         </div>
       </section>
 
-      <section id="fuel" class="view">
-        <div class="card panel form-panel">
+      <section class="stats-grid">
+        <article class="stat card">
+          <span class="eyebrow">Trenutni KM</span>
+          <strong id="statKm">41.100</strong><small>km</small>
+        </article>
+        <article class="stat card">
+          <span class="eyebrow">Povprečna poraba</span>
+          <strong id="statConsumption">—</strong><small>l/100 km</small>
+        </article>
+        <article class="stat card">
+          <span class="eyebrow">Skupni stroški</span>
+          <strong id="statCosts">0,00 €</strong><small>gorivo + stroški</small>
+        </article>
+        <article class="stat card">
+          <span class="eyebrow">Naslednji servis</span>
+          <strong>50.000</strong><small>Haldex + diferencial</small>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel card">
+          <div class="panel-head">
+            <h3>Zadnja tankanja</h3>
+            <button class="link-btn" data-view="fuel">Poglej vse</button>
+          </div>
+          <div id="fuelList" class="list empty">Ni še pravih tankanj. Dodaj prvo tankanje po nakupu.</div>
+        </article>
+
+        <article class="panel card">
+          <div class="panel-head">
+            <h3>Poraba</h3>
+            <span>zadnji vnosi</span>
+          </div>
+          <div class="chart-box" id="chartBox">
+            <div class="chart-placeholder">Premalo podatkov za graf</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="module card hidden" id="fuelModule">
+        <div class="panel-head">
           <h3>Novo tankanje</h3>
-          <form id="fuelForm">
-            <label>Datum<input type="date" name="date" required></label>
-            <label>KM<input type="number" name="km" required placeholder="npr. 41850"></label>
-            <label>Litri<input type="number" step="0.01" name="liters" required></label>
-            <label>Cena skupaj (€)<input type="number" step="0.01" name="total" required></label>
-            <label>Gorivo<select name="fuel"><option>95 RON</option><option>100 RON</option></select></label>
-            <label>Črpalka<input name="station" placeholder="Petrol, OMV..."></label>
-            <label class="full">Opomba<input name="note" placeholder="opomba"></label>
-            <button class="primary full" type="submit">Shrani tankanje</button>
-          </form>
-          <p id="saveStatus" class="save-status"></p>
+          <button class="link-btn" id="closeFuelForm">Zapri</button>
         </div>
+        <form id="fuelForm" class="form-grid">
+          <label>Datum<input name="date" type="date" required /></label>
+          <label>Kilometri<input name="km" type="number" min="41100" step="1" required /></label>
+          <label>Litri<input name="liters" type="number" min="0" step="0.01" required /></label>
+          <label>Cena skupaj (€)<input name="total" type="number" min="0" step="0.01" required /></label>
+          <label>Gorivo<select name="fuel"><option>95 RON</option><option>100 RON</option></select></label>
+          <label>Črpalka<input name="station" placeholder="Petrol, OMV, MOL..." /></label>
+          <label class="span-2">Opomba<input name="note" placeholder="npr. prvo tankanje, relacija..." /></label>
+          <button class="primary span-2" type="submit">Shrani tankanje v Google Sheet</button>
+        </form>
+        <p class="sync-status" id="syncStatus">Pripravljeno.</p>
       </section>
-
-      <section id="service" class="view"><div class="card panel"><h3>Servisi</h3><p>Modul sledi v naslednjem koraku.</p></div></section>
-      <section id="costs" class="view"><div class="card panel"><h3>Stroški</h3><p>Modul sledi v naslednjem koraku.</p></div></section>
-      <section id="trips" class="view"><div class="card panel"><h3>Izleti</h3><p>Modul sledi v naslednjem koraku.</p></div></section>
-      <section id="settings" class="view"><div class="card panel"><h3>Nastavitve</h3><p>API je povezan na tvoj Google Apps Script.</p></div></section>
     </main>
   </div>
+
+  <nav class="bottom-nav">
+    <button class="active" data-view="dashboard">Domov</button>
+    <button data-view="fuel">Tankanja</button>
+    <button data-view="service">Servisi</button>
+    <button data-view="costs">Stroški</button>
+  </nav>
+
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 </body>

@@ -1,21 +1,41 @@
-const START_KM = 41100;
-const fuelEntries = JSON.parse(localStorage.getItem('cupraFuel') || '[]');
-function fmt(n,dec=1){return Number(n).toLocaleString('sl-SI',{maximumFractionDigits:dec,minimumFractionDigits:dec})}
-function saveLocal(){localStorage.setItem('cupraFuel',JSON.stringify(fuelEntries));render();}
-function calcConsumption(entry, prevKm){const km=Number(entry.km)-prevKm;return km>0&&Number(entry.liters)>0?(Number(entry.liters)/km*100):null;}
+const PURCHASE_KM = 41100;
+const els = {
+  fuelForm: document.getElementById('fuelForm'), fuelModule: document.getElementById('fuelModule'), fuelList: document.getElementById('fuelList'),
+  openFuelForm: document.getElementById('openFuelForm'), closeFuelForm: document.getElementById('closeFuelForm'), syncStatus: document.getElementById('syncStatus'),
+  heroUpload: document.getElementById('heroUpload'), uploadHero: document.getElementById('uploadHero'), heroBg: document.getElementById('heroBg'),
+  statKm: document.getElementById('statKm'), statConsumption: document.getElementById('statConsumption'), statCosts: document.getElementById('statCosts')
+};
+const fmt = new Intl.NumberFormat('sl-SI');
+const money = new Intl.NumberFormat('sl-SI',{style:'currency',currency:'EUR'});
+let fuels = JSON.parse(localStorage.getItem('cupra.fuels') || '[]');
+function save(){ localStorage.setItem('cupra.fuels', JSON.stringify(fuels)); }
 function render(){
-  const sorted=[...fuelEntries].sort((a,b)=>Number(a.km)-Number(b.km));
-  let prev=START_KM,totalLiters=0,totalCost=0,lastKm=START_KM,cons=[];
-  sorted.forEach(e=>{const c=calcConsumption(e,prev); if(c) cons.push(c); prev=Number(e.km); lastKm=Number(e.km)||lastKm; totalLiters+=Number(e.liters)||0; totalCost+=Number(e.total)||0;});
-  document.getElementById('statKm').textContent=lastKm.toLocaleString('sl-SI');
-  document.getElementById('statCost').textContent=fmt(totalCost,2)+' €';
-  document.getElementById('statAvg').textContent=cons.length?fmt(cons.reduce((a,b)=>a+b,0)/cons.length,1):'—';
-  const list=document.getElementById('fuelList'); list.innerHTML='';
-  [...sorted].reverse().slice(0,5).forEach((e,i)=>{const prevKm=i===sorted.length-1?START_KM:(sorted[sorted.length-2-i]?.km||START_KM); const c=calcConsumption(e,prevKm); const div=document.createElement('div'); div.className='list-item'; div.innerHTML=`<div><b>${e.date}</b><br><small>${e.fuel} • ${Number(e.liters).toFixed(2)} L • ${Number(e.km).toLocaleString('sl-SI')} km</small></div><div><b>${Number(e.total).toFixed(2)} €</b><br><small>${c?fmt(c,1)+' l/100km':'—'}</small></div>`; list.appendChild(div);});
-  drawChart(cons.slice(-8));
+  const sorted = [...fuels].sort((a,b)=>Number(b.km)-Number(a.km));
+  const lastKm = sorted[0]?.km || PURCHASE_KM;
+  const total = fuels.reduce((s,x)=>s+Number(x.total||0),0);
+  els.statKm.textContent = fmt.format(lastKm);
+  els.statCosts.textContent = money.format(total);
+  const computable = sorted.filter(x=>x.consumption);
+  if(computable.length){ els.statConsumption.textContent = (computable.reduce((s,x)=>s+x.consumption,0)/computable.length).toFixed(1).replace('.',','); }
+  if(!fuels.length){ els.fuelList.className='list empty'; els.fuelList.textContent='Ni še pravih tankanj. Dodaj prvo tankanje po nakupu.'; return; }
+  els.fuelList.className='list';
+  els.fuelList.innerHTML = sorted.slice(0,5).map(x=>`<div class="fuel-entry"><div><strong>${x.date}</strong><span>${x.fuel} · ${x.station||'črpalka ni vpisana'}</span></div><div><strong>${fmt.format(x.km)} km</strong><span>${Number(x.liters).toFixed(2).replace('.',',')} L</span></div><div><strong>${money.format(x.total)}</strong><span>${x.consumption ? x.consumption.toFixed(1).replace('.',',')+' l/100 km' : '—'}</span></div></div>`).join('');
 }
-function drawChart(values){const c=document.getElementById('fuelChart'); if(!c)return; const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; for(let i=0;i<5;i++){let y=30+i*48;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(c.width-20,y);ctx.stroke();} if(!values.length){ctx.fillStyle='#aaa';ctx.fillText('Premalo podatkov za graf',50,140);return} const max=Math.max(10,...values)+1,min=Math.min(5,...values)-1; ctx.strokeStyle='#ffb17a';ctx.fillStyle='#ffb17a';ctx.lineWidth=3; values.forEach((v,i)=>{const x=50+i*((c.width-90)/Math.max(1,values.length-1));const y=240-((v-min)/(max-min))*190;if(i===0)ctx.beginPath(),ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();values.forEach((v,i)=>{const x=50+i*((c.width-90)/Math.max(1,values.length-1));const y=240-((v-min)/(max-min))*190;ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.fillText(fmt(v,1),x-10,y-12);ctx.fillStyle='#ffb17a';});}
-document.querySelectorAll('.nav,[data-view-target]').forEach(btn=>btn.addEventListener('click',()=>{const v=btn.dataset.view||btn.dataset.viewTarget; document.querySelectorAll('.view').forEach(x=>x.classList.remove('active')); document.getElementById(v).classList.add('active'); document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===v));}));
-document.getElementById('openFuel').addEventListener('click',()=>document.querySelector('[data-view="fuel"]').click());
-document.getElementById('fuelForm').addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.target);const entry=Object.fromEntries(fd.entries());fuelEntries.push(entry);saveLocal();document.getElementById('saveStatus').textContent='Pošiljam v Google Sheets...';try{await saveToSheet('Tankanja',[entry.date,Number(entry.km),Number(entry.liters),Number(entry.total),Number(entry.total)/Number(entry.liters),entry.fuel,'','','',entry.station||'',entry.note||'']);document.getElementById('saveStatus').textContent='Shranjeno lokalno + poslano v Google Sheets ✅';e.target.reset();}catch(err){document.getElementById('saveStatus').textContent='Shranjeno lokalno, Google Sheets ni uspel ⚠️';}});
-render();
+function openFuel(){ els.fuelModule.classList.remove('hidden'); els.fuelModule.scrollIntoView({behavior:'smooth',block:'start'}); }
+function closeFuel(){ els.fuelModule.classList.add('hidden'); }
+els.openFuelForm.addEventListener('click', openFuel); els.closeFuelForm.addEventListener('click', closeFuel);
+document.querySelectorAll('[data-view="fuel"]').forEach(b=>b.addEventListener('click', openFuel));
+document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(btn.dataset.view==='fuel')openFuel();}));
+els.fuelForm.addEventListener('submit', async (e)=>{
+  e.preventDefault(); const fd = new FormData(e.target); const km=Number(fd.get('km')), liters=Number(fd.get('liters')), total=Number(fd.get('total'));
+  const previousKm = fuels.length ? Math.max(...fuels.map(x=>Number(x.km))) : PURCHASE_KM;
+  const distance = km - previousKm;
+  const entry = {date:fd.get('date'), km, liters, total, pricePerLiter: liters ? +(total/liters).toFixed(3):0, fuel:fd.get('fuel'), station:fd.get('station'), note:fd.get('note'), consumption: distance>0 ? +(liters/distance*100).toFixed(2) : null};
+  fuels.push(entry); save(); render(); els.syncStatus.textContent='Pošiljam v Google Sheet...';
+  try{ await window.CupraApi.appendFuel(entry); els.syncStatus.textContent='Shranjeno lokalno in poslano v Google Sheet.'; e.target.reset(); }
+  catch(err){ els.syncStatus.textContent='Shranjeno lokalno, Google Sheet trenutno ni dosegljiv.'; console.error(err); }
+});
+els.uploadHero.addEventListener('click',()=>els.heroUpload.click());
+els.heroUpload.addEventListener('change',(e)=>{const file=e.target.files?.[0]; if(!file)return; const reader=new FileReader(); reader.onload=()=>{localStorage.setItem('cupra.hero',reader.result); els.heroBg.style.backgroundImage=`url(${reader.result})`;}; reader.readAsDataURL(file);});
+const savedHero = localStorage.getItem('cupra.hero'); if(savedHero) els.heroBg.style.backgroundImage=`url(${savedHero})`; render();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js').catch(()=>{}); }
