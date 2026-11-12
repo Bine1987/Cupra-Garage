@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated": "2026-11-12T15:12:17.402Z",
+  "updated": "2026-11-12T16:54:46.298Z",
   "fuel": [
     {
       "Datum": "16. 10. 2026",
@@ -56,6 +56,17 @@
       "Opomba": "Povratek z Dunaja; tankano do vrha (potrjeno). Od prejšnjega polnega tankanja 589 km; dejanska poraba 49,86 l / 589 km = 8,46 l/100 km. Po tankanju prikazan doseg BC 640 km. Račun 1115-2-14028.",
       "Kilometri": "55446",
       "BC poraba (l/100 km)": ""
+    },
+    {
+      "Datum": "12. 11. 2026",
+      "Črpalka": "MOL Zasavje, Završje",
+      "Gorivo": "EVO 95",
+      "Cena (€/l)": "1,51",
+      "Znesek (€)": "66,67",
+      "Litri (izračun)": "44,57",
+      "Opomba": "Tankano do vrha (potrjeno). 44,570 l na 481 km od prejšnjega tankanja do vrha = 9,27 l/100 km. BC od točenja: 480 km in 9,4 l/100 km. Račun: 67,12 € pred popustom, 0,45 € popusta, plačano 66,67 €.",
+      "Kilometri": "55927",
+      "BC poraba (l/100 km)": "9,4"
     }
   ],
   "costs": [
