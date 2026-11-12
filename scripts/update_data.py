@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Posodobi javne podatke Cupra Garage iz Google Apps Script JSONP API-ja."""
+
 import json
 import pathlib
+import re
 import time
 import urllib.request
 
@@ -12,30 +14,46 @@ API = (
 )
 TARGET = pathlib.Path(__file__).resolve().parents[1] / 'data.json'
 
+
+def parse_payload(raw: bytes):
+    text = raw.decode('utf-8-sig').strip()
+    if not text:
+        raise ValueError('Prazno telo odgovora API-ja.')
+
+    if text.startswith('{') or text.startswith('['):
+        return json.loads(text)
+
+    match = re.search(r'\w+\s*\((.*)\)\s*;?\s*$', text, re.S)
+    if match:
+        return json.loads(match.group(1))
+
+    match = re.search(r'(\{.*\}|\[.*\])', text, re.S)
+    if match:
+        return json.loads(match.group(1))
+
+    raise ValueError(f'Nepričakovan odgovor API-ja: {text[:200]!r}')
+
+
 last_error = None
 for attempt in range(3):
     try:
         request = urllib.request.Request(API, headers={'User-Agent': 'Mozilla/5.0 CupraGarageSync/1.0'})
         with urllib.request.urlopen(request, timeout=35) as response:
-            raw = response.read().decode('utf-8-sig').strip()
+            raw = response.read()
 
-        prefix = 'cupraSync('
-        if not raw.startswith(prefix):
-            raise ValueError(f'Nepričakovan odgovor API-ja: {raw[:200]!r}')
+        data = parse_payload(raw)
 
-        payload = raw[len(prefix):].rstrip(';').strip()
-        if not payload.endswith(')'):
-            raise ValueError('Neveljaven JSONP odgovor')
-        data = json.loads(payload[:-1])
+        if not isinstance(data, dict):
+            raise ValueError('API ni vrnil objektnega JSON odgovora.')
 
-        if not isinstance(data, dict) or data.get('status') != 'ok' or not all(
-            isinstance(data.get(key), list) for key in ('fuel', 'costs', 'services')
-        ):
-            raise ValueError('API ni vrnil veljavnih podatkov')
+        required_keys = ('fuel', 'costs', 'services')
+        if not all(isinstance(data.get(key), list) for key in required_keys):
+            raise ValueError(f'API ni vrnil veljavnih podatkov: manjkajo {required_keys}')
 
         output = json.dumps(data, ensure_ascii=False, indent=2) + '\n'
         if len(output.encode('utf-8')) > 2_000_000:
-            raise ValueError('Prevelik odgovor API-ja')
+            raise ValueError('Prevelik odgovor API-ja.')
+
         TARGET.write_text(output, encoding='utf-8')
         print(f'Posodobljeno: {TARGET}; tankanj: {len(data["fuel"])}')
         break
