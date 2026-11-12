@@ -1,0 +1,24 @@
+CUPRA GARAGE – POVEZAVA PREK GITHUB ACTIONS
+
+V repozitorij Cupra-Garage (veja main) naloži:
+  1. cupra-garage-preview.html
+  2. cupra-formentor-hero.jpg (če že obstaja, ni treba ponovno)
+  3. scripts/update_data.py (v mapi scripts)
+  4. .github/workflows/update-data.yml (ohrani točno pot)
+
+POZOR: Če datoteke naložiš prek GitHubovega "Upload files", preveri,
+da se res znajdejo v navedenih podmapah. Najlažje je, da jih
+ustvariš z "Add file -> Create new file" in v ime vpišeš
+scripts/update_data.py oziroma .github/workflows/update-data.yml,
+ter prilepiš vsebino iz priloženih datotek.
+
+Nato na GitHubu:
+- Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
+  (če možnost obstaja in je še ni omogočena).
+- Actions -> Posodobi Cupra Garage podatke -> Run workflow -> Run workflow.
+- Po uspešnem zagonu mora v korenu repozitorija nastati data.json.
+- Odpri spletno stran in preveri oznako POVEZANO.
+
+GitHubov urnik je približen: osvežitev na 15 min ni zagotovljena do minute.
+Podatki iz data.json bodo JAVNO dostopni vsakomur, ki pozna stran/repozitorij.
+V Google Sheets ne shranjuj občutljivih osebnih podatkov.
