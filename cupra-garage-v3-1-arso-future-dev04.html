@@ -1,0 +1,306 @@
+<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090b0e"><title>Cupra Garage · 3.1 Dynamic Weather + ARSO DEV03</title><style>
+:root{--bg:#090b0e;--panel:#16191e;--line:#303238;--copper:#d99a6f;--text:#f5f3f1;--muted:#9ba0aa}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button{font:inherit;cursor:pointer}header{max-width:1120px;margin:auto;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:18px;letter-spacing:.2em;font-weight:850}.brand b{color:var(--copper)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.25em;font-weight:500}.status{border:1px solid #554334;border-radius:40px;padding:7px 13px;color:var(--copper);font-size:11px;white-space:nowrap}.status.good{border-color:#326b4a;color:#8bd4a4}.wrap{max-width:1120px;padding:0 24px 100px;margin:auto}.hero{height:470px;border:1px solid #3d3734;border-radius:24px;overflow:hidden;position:relative;background:#12151a url('cupra-black-beast-hero.jpg') center 48%/cover no-repeat;box-shadow:0 24px 60px #0006}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,10,.94) 0%,rgba(5,7,10,.62) 38%,transparent 78%),linear-gradient(0deg,#090b0ee8,transparent 65%)}.hero-content{position:absolute;left:5%;top:13%;max-width:440px}.eyebrow{color:var(--copper);font-size:11px;letter-spacing:.28em}.hero h1{font-size:clamp(36px,5vw,68px);line-height:1.03;margin:20px 0 12px;letter-spacing:-.05em}.hero h1 em{font-style:normal;color:var(--copper)}.hero p{color:#c7c4c2}.hero-bottom{position:absolute;left:5%;right:5%;bottom:28px;display:flex;gap:12px;flex-wrap:wrap}.pill{background:#101217dd;border:1px solid #6b5040;border-radius:14px;padding:11px 17px;font-size:12px;color:#c9c5c3}.pill strong{display:block;color:white;font-size:22px}.section-title{display:flex;justify-content:space-between;align-items:end;margin:32px 0 15px}.section-title h2{font-size:20px;margin:0}.section-title span{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}.stat label{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;margin-top:9px;font-size:clamp(22px,3vw,33px);letter-spacing:-.03em}.stat:first-child strong{color:var(--copper)}.stat small{color:var(--muted)}.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.tile{border:1px solid var(--line);border-radius:18px;background:var(--panel);color:white;text-align:left;padding:20px;min-height:125px;transition:.2s}.tile:hover,.tile:focus-visible{border-color:var(--copper);transform:translateY(-2px)}.tile .icon{font-size:27px;color:var(--copper)}.tile strong{display:block;margin-top:9px}.tile small{color:var(--muted)}.view{display:none}.view.active{display:block}.back{background:none;border:1px solid var(--line);border-radius:12px;color:var(--copper);padding:10px 16px;margin:20px 0}.list{border:1px solid var(--line);border-radius:18px;overflow:hidden}.row{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--panel);padding:18px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row strong{display:block}.row small{display:block;color:var(--muted);margin-top:4px}.amount{white-space:nowrap;font-weight:750}.foot{margin-top:30px;font-size:12px;color:var(--muted)}.bar{height:12px;border-radius:30px;background:#292c32;display:flex;overflow:hidden;margin:20px 0}.bar i{height:100%;display:block}.legend{display:flex;flex-wrap:wrap;gap:20px;color:var(--muted);font-size:12px}.chart{display:flex;gap:10px;align-items:end;height:170px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.chart div{background:linear-gradient(var(--copper),#77503d);min-width:12px;flex:1;border-radius:5px 5px 0 0;position:relative}.chart div span{position:absolute;bottom:-19px;left:0;font-size:9px;color:var(--muted)}.notice{color:#cda98d;font-size:12px;margin-top:22px}nav{position:fixed;bottom:0;left:0;right:0;background:#15171beb;border-top:1px solid var(--line);display:flex;justify-content:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(14px);z-index:5}nav button{background:transparent;border:0;color:var(--muted);padding:8px 20px;border-radius:10px}nav button.selected{color:var(--copper);background:#32251e} @media(max-width:700px){header{padding:17px}.wrap{padding:0 14px 100px}.brand{font-size:14px}.hero{height:460px;background-position:58% center}.hero:before{background:linear-gradient(0deg,#090b0ef7 0%,#090b0e70 47%,#090b0e18 100%)}.hero-content{top:auto;bottom:115px;left:6%}.hero h1{font-size:41px}.hero-bottom{bottom:16px;left:6%}.pill{padding:8px 12px}.pill strong{font-size:18px}.stats{grid-template-columns:repeat(2,1fr)}.stat{padding:16px}.stat:last-child{grid-column:span 2}.menu{grid-template-columns:repeat(2,1fr)}.tile{padding:16px}.row{padding:15px}.amount{font-size:14px}nav button{padding:7px 12px;font-size:13px}}
+.header-actions{display:flex;gap:8px;align-items:center}.refresh{display:flex;align-items:center;gap:7px;background:#32251e;border:1px solid #76543d;color:var(--copper);border-radius:12px;padding:9px 12px}.refresh svg{width:18px;height:18px}.refresh:disabled{opacity:.65;cursor:wait}.refresh.busy svg{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:700px){.header-actions{flex-direction:column;align-items:flex-end;gap:5px}.refresh{padding:6px 10px;font-size:12px}.status{padding:4px 8px;font-size:10px}}
+/* Premium cockpit */
+:root{--bg:#090b0d;--panel:#13161a;--line:#292d32;--copper:#d49a74;--muted:#a2a6ae}body{background:radial-gradient(ellipse at 80% 0,#28201b 0,transparent 33rem),var(--bg);font-variant-numeric:tabular-nums}header{padding-block:24px}.brand{letter-spacing:.23em}.brand small{font-size:9px;margin-top:4px}.hero{border-radius:16px;border-color:#514137;box-shadow:0 22px 60px #0009}.hero:after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--copper),transparent);pointer-events:none}.hero h1{font-weight:850;letter-spacing:-.065em}.eyebrow{letter-spacing:.3em}.pill{border-radius:8px;background:#0d1016e8;backdrop-filter:blur(8px);border-color:#675040}.pill strong{font-size:30px;letter-spacing:.02em;color:var(--copper)}.section-title{margin-top:38px}.section-title span{letter-spacing:.12em;font-size:10px}.stat,.tile{border-radius:12px;background:linear-gradient(145deg,#1b1e23,#101216);box-shadow:0 8px 20px #0003}.stat{position:relative;overflow:hidden}.stat:before{content:'';position:absolute;left:0;top:0;width:46px;height:2px;background:var(--copper)}.stat strong{font-weight:780}.tile{position:relative;min-height:142px}.tile:hover{background:linear-gradient(145deg,#28201c,#15171a)}.glyph{width:24px;height:24px;vertical-align:middle;display:inline-block;color:var(--copper);flex-shrink:0}.tile .glyph{width:31px;height:31px}.section-title h2 .glyph{margin-right:5px}.list{border-radius:12px}.row{background:linear-gradient(90deg,#171a1e,#111317);padding:20px}.amount{color:var(--copper)}#services .row{position:relative;padding-left:37px}#services .row:before{content:'';position:absolute;left:16px;top:27px;width:8px;height:8px;border-radius:50%;background:var(--copper);box-shadow:0 0 10px #d49a7455}#services .row:not(:last-child):after{content:'';position:absolute;left:19px;top:36px;bottom:-26px;width:1px;background:#71513e;z-index:1}nav{background:#101216ed}nav button{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:94px;font-size:11px;letter-spacing:.04em}nav button .glyph{width:21px;height:21px;color:inherit}nav button.selected{background:#32251e;color:var(--copper)}.distribution{display:flex;gap:28px;align-items:center;margin-top:18px;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:12px}.donut{width:164px;height:164px;flex:0 0 164px;border-radius:50%;background:#303238;display:grid;place-items:center}.donut>div{width:132px;height:132px;background:#13161a;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}.donut small{color:var(--muted);letter-spacing:.16em;font-size:10px}.donut strong{font-size:19px}.distribution-copy{flex:1;min-width:0}.distribution-copy h2{font-size:17px}.chart{height:200px;padding:18px 18px 25px;background:repeating-linear-gradient(to top,transparent 0 39px,#ffffff09 40px),var(--panel)}.notice{padding:12px 0;border-top:1px solid var(--line)}.view.active{animation:enter .22s ease-out}@keyframes enter{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}@media(max-width:700px){header{padding:15px 14px}.hero{height:430px;background-position:58% center}.hero h1{font-size:40px}.hero-content{bottom:106px}.pill strong{font-size:23px}.section-title{margin-top:27px}.section-title span{font-size:9px;letter-spacing:.05em}.tile{min-height:125px}.distribution{padding:14px;gap:14px;flex-wrap:wrap;justify-content:center}.distribution-copy{min-width:190px}nav button{min-width:0;flex:1;padding:5px 3px;font-size:10px}.wrap{padding-bottom:120px}.row{padding:15px}}@media(prefers-reduced-motion:reduce){.view.active{animation:none}html{scroll-behavior:auto}}
+
+.brandmark{width:29px;height:29px;object-fit:contain;vertical-align:middle;margin-right:5px}.pill small{display:block;color:var(--muted);font-size:10px}.view:not(#home)>.section-title{margin-top:14px}.legend{gap:12px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}.monthly{display:grid;gap:14px;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:16px}.monthline{display:grid;grid-template-columns:75px 1fr auto;gap:12px;align-items:center;font-size:12px}.monthtrack{background:#292d32;height:12px;border-radius:5px;overflow:hidden}.monthtrack i{display:block;height:100%;background:linear-gradient(90deg,#805443,var(--copper));border-radius:5px}.metricnote{color:var(--muted);font-size:12px;margin:10px 0 20px}@media(max-width:700px){.brandmark{width:20px;height:20px;margin-right:1px}.monthline{grid-template-columns:55px 1fr auto;gap:8px}.monthly{padding:14px}}
+
+.hero{background-image:var(--season-image,url('cupra-black-beast-hero.jpg'));background-position: center center}.hero:before{background:linear-gradient(90deg,#090b0eea 0%,#090b0eb0 25%,#090b0e25 53%,transparent 75%),linear-gradient(0deg,#090b0e88,transparent 40%)}@media(max-width:700px){.hero{height:490px;background-size:auto 62%;background-position:72% top;background-color:#090b0e}.hero:before{background:linear-gradient(0deg,#090b0e 29%,#090b0eeb 39%,transparent 66%)}.hero-content{bottom:108px}.hero h1{font-size:34px;margin:8px 0}.hero-content p{margin:5px 0}}
+
+
+/* Monthly spend: a readable three-way breakdown, with clickable rows on mobile. */
+.monthly-key{display:flex;flex-wrap:wrap;gap:10px 18px;margin-bottom:5px;font-size:12px;color:var(--muted)}
+.monthly-key span{display:inline-flex;align-items:center;gap:7px}
+.monthly-key i,.month-detail i{display:inline-block;width:9px;height:9px;border-radius:3px;flex:none}
+.month-entry{display:grid;gap:7px}
+.monthline{grid-template-columns:75px minmax(0,1fr) auto}
+.monthline>strong{white-space:nowrap;text-align:right;font-size:13px}
+.monthtrack{display:flex;height:15px;border-radius:5px;overflow:hidden}
+.monthtrack .month-segment{display:block;height:100%;border-radius:0;min-width:0;flex:none;transition:opacity .15s}
+.monthtrack .month-segment[title]:hover{filter:brightness(1.3)}
+.month-detail{display:flex;flex-wrap:wrap;gap:6px 17px;padding-left:87px;font-size:11px;color:#bdb7b4}
+.month-detail span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.month-detail b{color:#e7e2df;font-weight:650}
+@media(max-width:700px){.monthline{grid-template-columns:58px minmax(0,1fr) auto;gap:9px}.month-detail{padding-left:0;gap:6px 12px;font-size:11px}.monthly-key{gap:7px 12px}.monthline>strong{font-size:12px}}
+
+/* Signature layout refinements */
+@media(min-width:701px){.hero{height:470px}.hero-content{top:10%;max-width:42%}.hero h1{font-size:clamp(29px,4vw,54px);margin:16px 0 10px;letter-spacing:-.055em}.hero-content p{margin:8px 0 0}.hero-bottom{bottom:24px}.hero:before{background:linear-gradient(90deg,#090b0ed9 0%,#090b0e85 25%,#090b0e12 53%,transparent 75%),linear-gradient(0deg,#090b0e55,transparent 40%)}}
+@media(max-width:700px){.hero{height:auto;min-height:500px;display:flex;flex-direction:column;justify-content:flex-end;padding:245px 6% 18px;background-size:auto 57%;background-position:72% top}.hero-content,.hero-bottom{position:relative;left:auto;right:auto;top:auto;bottom:auto;max-width:none}.hero h1{font-size:clamp(28px,8vw,36px);margin:8px 0}.hero-content p{margin:8px 0 16px}.hero-bottom{gap:8px}.pill{flex:1;min-width:0;padding:9px 10px}.pill strong{font-size:clamp(17px,5vw,23px);white-space:nowrap}.hero:before{background:linear-gradient(0deg,#090b0e 36%,#090b0ee0 43%,transparent 64%)}.hero-content,.hero-bottom{z-index:1}}
+
+
+/* CUPRA GARAGE 3.1 · Weather cockpit DEV01 (non-official driving advisories) */
+.weather-panel{margin:18px 0 7px;padding:19px 22px 17px;border:1px solid #544136;border-radius:14px;background:linear-gradient(112deg,#211c1b,#13161a 64%,#111418);box-shadow:0 14px 35px #0004}
+.weather-main{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.weather-place{color:var(--copper);font-size:10px;letter-spacing:.24em;font-weight:800}
+.weather-heading{display:flex;align-items:center;gap:13px;margin-top:7px}
+.weather-symbol{font-size:34px;line-height:1;filter:drop-shadow(0 0 8px #d49a7430)}
+.weather-temp{font-size:clamp(29px,4vw,41px);font-weight:850;letter-spacing:-.045em;line-height:1.1}
+.weather-description{color:#e2dcd9;font-size:13px;margin-top:3px}
+.weather-facts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:48%}
+.weather-fact{min-width:98px;background:#101317bd;border:1px solid #393432;border-radius:9px;padding:9px 12px}
+.weather-fact small{display:block;color:var(--muted);font-size:10px;letter-spacing:.07em}
+.weather-fact strong{font-size:14px;color:#f5f3f1}
+.weather-advisories{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+.weather-advisory{border-left:3px solid var(--copper);background:#45301c55;padding:9px 12px;border-radius:3px 7px 7px 3px;font-size:12px;color:#f5d8bb}
+.weather-advisory.urgent{border-left-color:#ff786c;background:#7c2f3055;color:#ffe0df}
+.weather-advisory.calm{border-left-color:#43815b;background:#1c372733;color:#a5deb7}
+.weather-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding-top:12px;margin-top:11px;border-top:1px solid #ffffff14;font-size:10px;color:var(--muted)}
+.weather-footer a{color:#dda988;text-decoration:none}.weather-footer a:hover{text-decoration:underline}
+@media(max-width:700px){.weather-panel{padding:16px;margin:14px 0 7px}.weather-main{display:block}.weather-facts{max-width:none;justify-content:flex-start;margin-top:15px;gap:7px}.weather-fact{flex:1;min-width:92px}.weather-temp{font-size:35px}.weather-symbol{font-size:31px}}
+
+
+/* V3.1: pregledne količine goriva na grafu; primerno tudi za iPhone */
+.fuel-bars{height:260px;display:flex;align-items:stretch;gap:12px;padding:16px 18px 14px;background:repeating-linear-gradient(to top,transparent 0 42px,#ffffff08 43px),var(--panel);overflow-x:auto;overflow-y:hidden}
+.fuel-bars .fuel-bar-item{display:flex;flex:1 0 0;min-width:72px;flex-direction:column;align-items:center;justify-content:flex-end;background:none;border-radius:0;outline-offset:2px;gap:5px}
+.fuel-bars .fuel-bar-value{color:#f0b48c;font-size:13px;white-space:nowrap;font-weight:750;line-height:1.3}
+.fuel-bars .fuel-bar-value small{font-size:11px;font-weight:500}
+.fuel-bars .fuel-bar-track{width:100%;height:175px;display:flex;align-items:flex-end}
+.fuel-bars .fuel-bar-fill{width:100%;background:linear-gradient(180deg,#d49a74,#76513f);border-radius:6px 6px 0 0;min-height:4px;transition:filter .2s}
+.fuel-bars .fuel-bar-item:hover .fuel-bar-fill,.fuel-bars .fuel-bar-item:focus-visible .fuel-bar-fill{filter:brightness(1.2)}
+.fuel-bars .fuel-bar-date{position:static;color:#c4c7cc;font-size:11px;white-space:nowrap;margin-top:2px}
+@media(max-width:700px){.fuel-bars{gap:9px;padding:14px 10px 12px;height:235px}.fuel-bars .fuel-bar-item{min-width:66px}.fuel-bars .fuel-bar-track{height:153px}.fuel-bars .fuel-bar-value{font-size:11px}.fuel-bars .fuel-bar-date{font-size:10px}}
+
+/* ARSO official-warning companion card; never infer safe conditions from a failed fetch. */
+.arso-panel{margin:12px 0 7px;padding:15px 20px;background:#13161a;border:1px solid #4d4540;border-radius:13px}
+.arso-head{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.arso-title{color:var(--copper);font-size:11px;font-weight:850;letter-spacing:.13em}
+.arso-chip{font-size:11px;border:1px solid #55535a;padding:4px 9px;border-radius:20px;color:#cbc7c3}
+.arso-chip.yellow{border-color:#a58a2b;color:#ffe191}.arso-chip.orange{border-color:#a86731;color:#ffbd89}.arso-chip.red{border-color:#b94747;color:#ffabab}.arso-chip.green{border-color:#3c7857;color:#9dddaf}
+.arso-items{margin-top:9px;display:grid;gap:7px}.arso-item{padding:10px 12px;background:#0e1115;border-left:3px solid #a77a58;border-radius:6px;font-size:12px}.arso-item strong{display:block;margin-bottom:3px}.arso-item small{color:#b5b4b7;font-size:11px}
+.arso-future-heading{font-size:11px;font-weight:800;color:#f0c278;letter-spacing:.08em;margin:10px 0 2px}.arso-item.upcoming{background:#191711}.arso-item .arso-date{display:block;margin-top:5px;color:#c3bdba}.arso-note{color:#aeb1b8;font-size:11px;margin-top:10px}.arso-note a{color:#dca780}
+@media(max-width:700px){.arso-panel{padding:14px}.arso-title{font-size:10px}}
+</style><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest-v3.json"><meta name="apple-mobile-web-app-title" content="Cupra Garage"></head><body><header><div class="brand"><b><img class="brandmark" src="icon-192.png" alt=""> CUPRA</b> GARAGE<small>FORMENTOR EDITION · 03</small></div><div class="header-actions"><div class="status" id="status" role="status">● NALAGANJE</div><button class="refresh" id="refresh" type="button" onclick="refreshLive()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2 6M20 4v7h-7"/></svg><span>Osveži</span></button></div></header><main class="wrap"><section id="home" class="view active"><div class="hero"><div class="hero-content"><div class="eyebrow">BLACK BEAST  /  2023</div><h1>CUPRA<br>FORMENTOR<br><em>VZ 310</em></h1><p>4Drive &nbsp;|&nbsp; DSG &nbsp;|&nbsp; EA888 Gen4</p></div><div class="hero-bottom"><div class="pill">ZADNJE STANJE<strong id="km">— km</strong></div><div class="pill">ZMOGLJIVOST<strong>310 KM</strong><small>228 kW · 4Drive</small></div></div></div><section class="weather-panel" id="weatherPanel" aria-label="Vreme za Dobovec">
+  <div class="weather-main">
+    <div><div class="weather-place">◈ DOBOVEC · VREME ZA VOŽNJO</div>
+      <div class="weather-heading"><span class="weather-symbol" id="weatherSymbol" aria-hidden="true">◌</span>
+        <div><div class="weather-temp" id="weatherTemp">— °C</div><div class="weather-description" id="weatherDescription">Pridobivam vremenske podatke …</div></div></div></div>
+    <div class="weather-facts"><div class="weather-fact"><small>OBČUTEK</small><strong id="weatherFeels">— °C</strong></div>
+      <div class="weather-fact"><small>VETER · MODEL</small><strong id="weatherWind">— km/h</strong></div>
+      <div class="weather-fact"><small>SUNKI · MODEL*</small><strong id="weatherGust">— km/h</strong></div></div>
+  </div>
+  <div class="weather-advisories" id="weatherAdvisories" aria-live="polite"><div class="weather-advisory calm">Preverjam razmere na poti …</div></div>
+  <div class="weather-footer"><span id="weatherUpdated">Vir: Open-Meteo · napovedni model za Dobovec</span>
+    <span>Modelni podatki, ne meritve na Dobovcu · <a href="https://www.arso.gov.si/vreme/opozorila/index.html" target="_blank" rel="noopener noreferrer">Uradna opozorila ARSO ↗</a></span></div>
+</section><section class="arso-panel" aria-label="Uradna opozorila ARSO za osrednjo Slovenijo">
+ <div class="arso-head"><div class="arso-title">⚠ ARSO · URADNA VREMENSKA OPOZORILA</div><span id="arsoBadge" class="arso-chip">PREVERJANJE</span></div>
+ <div class="arso-items" id="arsoItems" aria-live="polite"><div class="arso-item">Pridobivam stanje opozoril …</div></div>
+ <div class="arso-note"><span id="arsoMeta">Območje: Osrednja Slovenija · vir: ARSO CAP</span> · <a href="https://meteo.arso.gov.si/met/sl/warning/" target="_blank" rel="noopener noreferrer">Preveri uradna opozorila ↗</a></div>
+ </section><div class="section-title"><h2>Pregled garaže</h2><span>FINANCIAL OVERVIEW</span></div><div class="stats"><div class="stat"><label>Skupaj evidentirano</label><strong id="total">— €</strong><small>Vsi zabeleženi stroški</small></div><div class="stat"><label>Gorivo</label><strong id="fuelTotal">— €</strong><small id="fuelSub">— tankanj</small></div><div class="stat"><label>Servisi in ostalo</label><strong id="otherTotal">— €</strong><small>Vzdrževanje in oprema</small></div><div class="stat"><label>Povprečna poraba</label><strong id="homeConsumption">— l/100 km</strong><small id="homeConsumptionDetail">Na osnovi polnih tankanj</small></div></div><div class="section-title"><h2>Moja garaža</h2><span>GARAGE MODULES</span></div><div class="menu"><button class="tile" onclick="show('fuel')"><span class="icon"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h11v17M3 21h13M7 7h5v5H7zM15 14h2v4a2 2 0 0 0 4 0v-7l-3-3"/></svg></span><strong>Tankanja →</strong><small>Vsa tankanja in litri</small></button><button class="tile" onclick="show('services')"><span class="icon"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a5 5 0 0 0-6 6L3 17a2 2 0 0 0 3 3l5-5a5 5 0 0 0 6-6l-3 3-3-3z"/></svg></span><strong>Servisi →</strong><small>Servisna zgodovina</small></button><button class="tile" onclick="show('costs')"><span class="icon"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span><strong>Gume in ostalo →</strong><small>Dodatni stroški</small></button><button class="tile" onclick="show('stats')"><span class="icon"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V12h4v8M10 20V4h4v16M16 20V8h4v12"/></svg></span><strong>Statistika →</strong><small>Poraba in stroški</small></button></div></section><section id="fuel" class="view"><button class="back" onclick="show('home')">← Domov</button><div class="section-title"><h2><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h11v17M3 21h13M7 7h5v5H7zM15 14h2v4a2 2 0 0 0 4 0v-7l-3-3"/></svg> Tankanja</h2><span id="fuelCount"></span></div><div class="list" id="fuelList"></div></section><section id="services" class="view"><button class="back" onclick="show('home')">← Domov</button><div class="section-title"><h2><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a5 5 0 0 0-6 6L3 17a2 2 0 0 0 3 3l5-5a5 5 0 0 0 6-6l-3 3-3-3z"/></svg> Servisi</h2><span id="serviceCount"></span></div><div class="list" id="serviceList"></div></section><section id="costs" class="view"><button class="back" onclick="show('home')">← Domov</button><div class="section-title"><h2><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg> Gume in ostalo</h2><span id="costCount"></span></div><div class="list" id="costList"></div></section><section id="stats" class="view"><button class="back" onclick="show('home')">← Domov</button><div class="section-title"><h2><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V12h4v8M10 20V4h4v16M16 20V8h4v12"/></svg> Statistika</h2><span>evidentirani stroški</span></div><div class="stats"><div class="stat"><label>Gorivo</label><strong id="statFuel">—</strong></div><div class="stat"><label>Vzdrževanje</label><strong id="statOther">—</strong></div><div class="stat"><label>Skupaj</label><strong id="statTotal">—</strong></div></div><div class="distribution"><div class="donut" id="donut"><div><small>SKUPAJ</small><strong id="donutTotal">—</strong></div></div><div class="distribution-copy"><h2>Struktura stroškov</h2><div class="bar" id="bar"></div><div class="legend" id="legend"></div></div></div><div class="section-title"><h2>Gorivo · Performance</h2></div><div class="stats"><div class="stat"><label>Povprečna cena goriva</label><strong id="avgPrice">—</strong><small>Tehtano po litrih</small></div><div class="stat"><label>Kupljeno gorivo</label><strong id="litersTotal">—</strong></div><div class="stat"><label>Število tankanj</label><strong id="fillTotal">—</strong></div><div class="stat"><label>Povprečna poraba</label><strong id="avgConsumption">— l/100 km</strong><small id="consumptionDetails">Polna tankanja</small></div></div><p class="metricnote">Poraba je izračunana po metodi polno–polno: litri pri naslednjem polnem tankanju ÷ prevoženi kilometri od prejšnjega polnega tankanja × 100. Prvo tankanje je začetna referenca. Če bo katero tankanje delno, ga bo treba označiti, da se izračun popravi.</p><div class="section-title"><h2>Mesečni stroški</h2><span>Razdelitev po kategorijah</span></div><div class="monthly" id="monthly"></div><div class="section-title"><h2>Posamezna tankanja</h2><span>Litri na tankanje</span></div><div class="chart fuel-bars" id="chart" aria-label="Količina natočenega goriva po posameznih tankanjih"></div><p class="foot">Višina stolpca predstavlja natočene litre. Pod vsakim stolpcem je datum tankanja; ob dotiku ali z miško so vidni tudi znesek, kilometri in črpalka.</p></section><p class="notice" id="syncInfo" aria-live="polite">Pridobivam podatke …</p></main><nav><button id="navhome" class="selected" onclick="show('home')"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 12 3l9 7v10h-6v-7H9v7H3z"/></svg> Domov</button><button id="navfuel" onclick="show('fuel')"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h11v17M3 21h13M7 7h5v5H7zM15 14h2v4a2 2 0 0 0 4 0v-7l-3-3"/></svg> Tankanja</button><button id="navservices" onclick="show('services')"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a5 5 0 0 0-6 6L3 17a2 2 0 0 0 3 3l5-5a5 5 0 0 0 6-6l-3 3-3-3z"/></svg> Servisi</button><button id="navstats" onclick="show('stats')"><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V12h4v8M10 20V4h4v16M16 20V8h4v12"/></svg> Statistika</button></nav><script>
+const $=id=>document.getElementById(id);const fmt=n=>new Intl.NumberFormat('sl-SI',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n);const euro=n=>fmt(n)+' €';const num=v=>{let s=String(v??'').replace(/\s/g,'').replace(/[^0-9.,-]/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');return Number(s)||0};const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const dateKey=s=>{let m=String(s||'').match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/);return m?+m[3]*10000+ +m[2]*100+ +m[1]:0};function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('selected',x.id==='nav'+id));window.scrollTo({top:0,behavior:'smooth'});}function row(title,detail,amount){return `<div class="row"><div><strong>${safe(title)}</strong><small>${safe(detail)}</small></div><div class="amount">${euro(amount)}</div></div>`}// Privzeto so vsa evidentirana tankanja polna. Če neko tankanje ni polno,
+// dodaj njegovo kilometrino v PARTIAL_FILL_ODOMETERS (npr. [60000]).
+// Takšna tankanja se pri izračunu združijo do naslednjega polnega tankanja.
+const PARTIAL_FILL_ODOMETERS = [];
+function calculateConsumption(fuel){
+  const partials=new Set(PARTIAL_FILL_ODOMETERS);
+  const records=fuel.map(r=>({km:num(r['Kilometri']),liters:num(r['Litri (izračun)']),partial:partials.has(num(r['Kilometri']))}))
+    .filter(r=>r.km>0&&r.liters>0).sort((a,b)=>a.km-b.km);
+  if(records.length<2)return null;
+  let previousFull=null,litersBetween=0,litersUsed=0,distance=0,intervals=0;
+  for(const r of records){
+    if(previousFull===null){if(!r.partial)previousFull=r.km;continue;}
+    if(r.km<=previousFull)continue;
+    litersBetween+=r.liters;
+    if(!r.partial){
+      const kmBetween=r.km-previousFull;
+      if(kmBetween>0){distance+=kmBetween;litersUsed+=litersBetween;intervals++;}
+      previousFull=r.km;litersBetween=0;
+    }
+  }
+  return distance>0?{average:100*litersUsed/distance,distance,intervals}:null;
+}
+function render(d){const fuel=d.fuel||[],costs=d.costs||[],services=d.services||[];const ft=fuel.reduce((s,r)=>s+num(r['Znesek (€)']),0),ct=costs.reduce((s,r)=>s+num(r['Znesek (€)']),0),st=services.reduce((s,r)=>s+num(r['Strošek (€)']),0),all=ft+ct+st;const kms=[...fuel.map(r=>num(r['Kilometri'])),...costs.map(r=>num(r['Kilometri'])),...services.map(r=>num(r['Kilometri']))].filter(n=>n>0);$('km').textContent=kms.length?new Intl.NumberFormat('sl-SI',{maximumFractionDigits:0}).format(Math.max(...kms))+' km':'— km';$('total').textContent=euro(all);$('fuelTotal').textContent=euro(ft);$('otherTotal').textContent=euro(ct+st);$('fuelSub').textContent=fuel.length+' tankanj · '+fmt(fuel.reduce((s,r)=>s+num(r['Litri (izračun)']),0))+' l';$('fuelCount').textContent=fuel.length+' vnosov';$('serviceCount').textContent=services.length+' vnosov';$('costCount').textContent=costs.length+' vnosov';$('fuelList').innerHTML=[...fuel].sort((a,b)=>dateKey(b['Datum'])-dateKey(a['Datum'])).map(r=>row((r['Črpalka']||'Tankanje')+' · '+(r['Gorivo']||''),(r['Datum']||'')+' · '+(r['Litri (izračun)']||'—')+' l · '+(r['Kilometri']||'—')+' km',num(r['Znesek (€)']))).join('')||row('Ni vnosov','',0);$('serviceList').innerHTML=[...services].sort((a,b)=>dateKey(b['Datum'])-dateKey(a['Datum'])).map(r=>row(r['Opravljeno delo']||r['Vrsta servisa']||'Servis',(r['Datum']||'')+' · '+(r['Kilometri']||'—')+' km',num(r['Strošek (€)']))).join('')||row('Ni vnosov','',0);$('costList').innerHTML=[...costs].sort((a,b)=>dateKey(b['Datum'])-dateKey(a['Datum'])).map(r=>row(r['Opis']||r['Kategorija']||'Strošek',(r['Datum']||'')+' · '+(r['Kategorija']||''),num(r['Znesek (€)']))).join('')||row('Ni vnosov','',0);$('statFuel').textContent=euro(ft);$('statOther').textContent=euro(ct+st);$('statTotal').textContent=euro(all);$('donutTotal').textContent=euro(all);$('donut').style.background=all>0&&[ft,ct,st].every(n=>n>=0)?`conic-gradient(var(--copper) 0 ${ft/all*100}%, #8c6655 ${ft/all*100}% ${(ft+ct)/all*100}%, #59616d ${(ft+ct)/all*100}% 100%)`:'#303238';$('bar').innerHTML=all?`<i style="width:${ft/all*100}%;background:#d99a6f"></i><i style="width:${ct/all*100}%;background:#8c6655"></i><i style="width:${st/all*100}%;background:#59616d"></i>`:'';$('legend').innerHTML=[['Gorivo',ft,'#d99a6f'],['Ostalo',ct,'#8c6655'],['Servisi',st,'#59616d']].map(([label,value,color])=>`<span><i style="background:${color}"></i>${label} ${all?Math.round(value/all*100):0}%</span>`).join('');const liters=fuel.reduce((a,r)=>a+num(r['Litri (izračun)']),0);$('litersTotal').textContent=fmt(liters)+' l';$('fillTotal').textContent=fuel.length;const consumption=calculateConsumption(fuel);const avgText=consumption?fmt(consumption.average)+' l/100 km':'— l/100 km';$('avgConsumption').textContent=avgText;$('homeConsumption').textContent=avgText;const detail=consumption?new Intl.NumberFormat('sl-SI',{maximumFractionDigits:0}).format(consumption.distance)+' km · '+consumption.intervals+' intervalov':'Za izračun sta potrebni vsaj 2 polni tankanji';$('consumptionDetails').textContent=detail;$('homeConsumptionDetail').textContent=detail;const valid=fuel.filter(r=>num(r['Litri (izračun)'])>0&&num(r['Znesek (€)'])>0);const vl=valid.reduce((a,r)=>a+num(r['Litri (izračun)']),0);$('avgPrice').textContent=vl?new Intl.NumberFormat('sl-SI',{minimumFractionDigits:3,maximumFractionDigits:3}).format(valid.reduce((a,r)=>a+num(r['Znesek (€)']),0)/vl)+' €/l':'—';const months=new Map();
+const categories=[
+ {rows:fuel,key:'Znesek (€)',id:'fuel',label:'Gorivo',color:'#d99a6f'},
+ {rows:costs,key:'Znesek (€)',id:'other',label:'Ostalo / oprema',color:'#8c6655'},
+ {rows:services,key:'Strošek (€)',id:'service',label:'Servisi',color:'#697480'}
+];
+for(const cat of categories)for(const r of cat.rows){
+ const dk=dateKey(r['Datum']);const iso=String(r['Datum']||'').match(/^(\d{4})-(\d{2})-/);
+ const m=dk?String(dk).slice(0,6):iso?iso[1]+iso[2]:'??????';
+ const values=months.get(m)||{fuel:0,other:0,service:0};
+ values[cat.id]+=num(r[cat.key]);months.set(m,values);
+}
+const entries=[...months].sort(([a],[b])=>a==='??????'?1:b==='??????'?-1:a.localeCompare(b));
+const sumMonth=values=>values.fuel+values.other+values.service;
+const peak=Math.max(1,...entries.map(([,values])=>Math.max(0,sumMonth(values))));
+const keyHtml='<div class="monthly-key">'+categories.map(cat=>`<span><i style="background:${cat.color}"></i>${cat.label}</span>`).join('')+'</div>';
+$('monthly').innerHTML=entries.length?keyHtml+entries.map(([m,values])=>{
+ const total=sumMonth(values);
+ const bars=categories.map(cat=>{
+  const value=values[cat.id];if(value<=0)return '';
+  const width=Math.max(0,value/peak*100);
+  return `<i class="month-segment" style="width:${width}%;background:${cat.color}" title="${cat.label}: ${euro(value)}"></i>`;
+ }).join('');
+ const details=categories.filter(cat=>values[cat.id]!==0).map(cat=>`<span><i style="background:${cat.color}"></i>${cat.label}: <b>${euro(values[cat.id])}</b></span>`).join('');
+ const label=m==='??????'?'Brez dat.':m.slice(4)+'.'+m.slice(0,4);
+ return `<div class="month-entry"><div class="monthline"><span>${label}</span><div class="monthtrack" role="img" aria-label="${label}: ${categories.map(cat=>cat.label+' '+euro(values[cat.id])).join(', ')}"><!-- segments -->${bars}</div><strong>${euro(total)}</strong></div><div class="month-detail">${details}</div></div>`;
+}).join(''):'Ni podatkov' ;let sorted=[...fuel].sort((a,b)=>dateKey(a['Datum'])-dateKey(b['Datum'])),max=Math.max(1,...sorted.map(r=>num(r['Litri (izračun)'])));$('chart').innerHTML=sorted.map((r,i)=>{const liters=num(r['Litri (izračun)']);const datum=String(r['Datum']||'');const detail=datum+' · '+fmt(liters)+' l · '+euro(num(r['Znesek (€)']))+' · '+(r['Kilometri']||'—')+' km · '+(r['Črpalka']||'Tankanje');const dateLabel=datum.match(/^(\d{1,2}\.\s*\d{1,2})/);return `<div class="fuel-bar-item" tabindex="0" title="${safe(detail)}" aria-label="${safe(detail)}"><strong class="fuel-bar-value">${fmt(liters)} <small>l</small></strong><div class="fuel-bar-track"><div class="fuel-bar-fill" style="height:${Math.max(3,liters/max*100)}%"></div></div><span class="fuel-bar-date">${safe(dateLabel?dateLabel[1]:datum||('#'+(i+1)))}</span></div>`}).join('');}const API='https://script.google.com/macros/s/AKfycbz-SVo5EAgJ5OtuRPjExU_SezVSRRX81LytZXfT2G-XsERzn677CKY4XsHwgW8qG3YYng/exec';
+let busy=false;
+function accept(data){if(data.status!=='ok'||!['fuel','costs','services'].every(k=>Array.isArray(data[k])))throw Error('Neveljavni podatki');render(data);}
+function state(label,good=false){$('status').textContent='● '+label;$('status').classList.toggle('good',good);}
+function lock(on){busy=on;$('refresh').disabled=on;$('refresh').classList.toggle('busy',on);}
+async function sync(){lock(true);try{const response=await fetch('data.json?ts='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();accept(data);state('POVEZANO',true);$('syncInfo').textContent='GitHub · Zadnja posodobitev podatkov: '+(data.updated?new Date(data.updated).toLocaleString('sl-SI'):'ni podatka');}catch(e){state('BREZ PODATKOV');$('syncInfo').textContent='Podatkov ni bilo mogoče naložiti: '+e.message;}finally{lock(false);}}
+function liveData(){return new Promise((resolve,reject)=>{const cb='cupraRefresh_'+Date.now();const script=document.createElement('script');let timer;function finish(error,data){clearTimeout(timer);script.remove();window[cb]=()=>{};if(error)reject(error);else resolve(data);}window[cb]=data=>finish(null,data);script.onerror=()=>finish(Error('Povezava z Google Sheets ni uspela'));timer=setTimeout(()=>finish(Error('Čas za povezavo je potekel')),15000);script.src=API+'?callback='+encodeURIComponent(cb)+'&ts='+Date.now();document.head.appendChild(script);});}
+async function refreshLive(){if(busy)return;void updateWeather(true);void updateArsoWarnings(true);lock(true);state('OSVEŽEVANJE');const previous=$('syncInfo').textContent;$('syncInfo').textContent='Pridobivam najnovejše podatke iz Google Sheets …';try{const data=await liveData();accept(data);state('OSVEŽENO',true);$('syncInfo').textContent='Google Sheets · Ročno osveženo: '+new Date().toLocaleString('sl-SI');}catch(e){state('OSVEŽITEV NI USPELA');$('syncInfo').textContent=e.message+'. Prikaz ostaja nespremenjen. '+previous;}finally{lock(false);}}
+function seasonForDate(date){const m=date.getMonth()+1,d=date.getDate();if((m===12&&d>=20)||(m===1&&d<=2))return 'christmas';if(m===12||m<=2)return 'winter';if(m<=5)return 'spring';if(m<=8)return 'summer';return 'autumn';}
+// Dynamic Weather 3.1: festive cover has priority; otherwise reflect local day/night and weather.
+// Seasonal photos remain the fallback when live weather is not available.
+let latestWeatherScene=null;
+function weatherCategory(code){
+ const n=Number(code);
+ if([71,73,75,77,85,86].includes(n))return 'snow';
+ if([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].includes(n))return 'rain';
+ if([2,3,45,48].includes(n))return 'cloudy';
+ return 'sunny';
+}
+function updateHero(){
+ const season=seasonForDate(new Date());
+ let filename=`hero-${season}.jpg`;
+ if(season!=='christmas'&&latestWeatherScene){
+  const period=latestWeatherScene.isDay?'day':'night';
+  filename=`weather-${period}-${weatherCategory(latestWeatherScene.code)}.jpg`;
+ }
+ document.querySelector('.hero').style.setProperty('--season-image',`url('${filename}')`);
+}
+updateHero();
+window.addEventListener('focus',updateHero);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateHero();});
+setInterval(updateHero,60000);
+
+// Weather DEV01: local forecast at fixed coordinates of Dobovec (Trbovlje), without phone geolocation.
+const WEATHER_LAT=46.11083, WEATHER_LON=15.05886;
+const WEATHER_URL='https://api.open-meteo.com/v1/forecast?latitude='+WEATHER_LAT+'&longitude='+WEATHER_LON
+  +'&current=temperature_2m,apparent_temperature,weather_code,precipitation,rain,snowfall,is_day,wind_speed_10m,wind_gusts_10m'
+  +'&hourly=temperature_2m,weather_code,precipitation,wind_gusts_10m&forecast_hours=6&timezone=Europe%2FLjubljana&models=ecmwf_ifs025';
+let lastWeatherFetch=0, weatherPending=false;
+function weatherInfo(code,isDay){
+ const night=!Boolean(isDay);
+ if(code===0)return {label:night?'Jasna noč':'Jasno',icon:night?'☾':'☀'};
+ if(code===1)return {label:night?'Pretežno jasno':'Pretežno jasno',icon:night?'☾':'⛅'};
+ if(code===2)return {label:'Delno oblačno',icon:'⛅'};
+ if(code===3)return {label:'Oblačno',icon:'☁'};
+ if(code===45||code===48)return {label:'Megla',icon:'≋'};
+ if([51,53,55,56,57].includes(code))return {label:'Rosenje',icon:'☂'};
+ if([61,63,65,66,67,80,81,82].includes(code))return {label:'Dež',icon:'☂'};
+ if([71,73,75,77,85,86].includes(code))return {label:'Sneženje',icon:'❄'};
+ if([95,96,99].includes(code))return {label:'Nevihta',icon:'⚡'};
+ return {label:'Spremenljivo',icon:'◌'};
+}
+function drivingAdvisories(current,hourly){
+ const c=Number(current.weather_code), t=Number(current.temperature_2m);
+ const codes=[c,...(hourly.weather_code||[]).slice(0,3).map(Number)];
+ const rain=[Number(current.precipitation)||0,...(hourly.precipitation||[]).slice(0,3).map(n=>Number(n)||0)];
+ const gust=Math.max(Number(current.wind_gusts_10m)||0,...(hourly.wind_gusts_10m||[]).slice(0,3).map(n=>Number(n)||0));
+ const messages=[];
+ // These thresholds generate driving hints, NOT actual road-condition observations or official alerts.
+ if(codes.some(n=>[95,96,99].includes(n)))messages.push({level:'urgent',text:'⚡ Možne nevihte v naslednjih urah – previdno zaradi nalivov in sunkov vetra.'});
+ if(codes.some(n=>[71,73,75,77,85,86].includes(n))||(Number(current.snowfall)||0)>0)messages.push({level:'warning',text:'❄ Možen sneg – spremljaj stanje cest in oprijem.'});
+ if(Number.isFinite(t)&&t<=2)messages.push({level:'warning',text:'❄ Temperatura blizu ledišča – na senčnih delih cest je možna poledica.'});
+ if(gust>=60)messages.push({level:'urgent',text:'🌬 Močni sunki vetra (model napoveduje do '+Math.round(gust)+' km/h) – posebej previdno na izpostavljenih odsekih.'});
+ else if(gust>=45)messages.push({level:'warning',text:'🌬 Povečan veter (model napoveduje sunke do '+Math.round(gust)+' km/h) – previdno na odprtih cestah.'});
+ if(rain.some(mm=>mm>=5))messages.push({level:'warning',text:'🌧 Napovedan močnejši dež – možnost slabše vidljivosti in zastajanja vode.'});
+ if(codes.some(n=>n===45||n===48))messages.push({level:'warning',text:'🌫 Možna megla – prilagodi hitrost vidljivosti.'});
+ return messages.slice(0,3);
+}
+function renderWeather(data){
+ const c=data.current;
+ if(!c||!Number.isFinite(Number(c.temperature_2m))||c.temperature_2m==null)throw Error('Manjkajo vremenski podatki');
+ const info=weatherInfo(Number(c.weather_code),c.is_day===1);
+ latestWeatherScene={code:Number(c.weather_code),isDay:Number(c.is_day)===1};
+ updateHero();
+ $('weatherSymbol').textContent=info.icon;
+ $('weatherTemp').textContent=Math.round(Number(c.temperature_2m))+' °C';
+ $('weatherDescription').textContent=info.label;
+ const reading=(n,unit)=>Number.isFinite(Number(n))&&n!=null?Math.round(Number(n))+' '+unit:'—';
+ $('weatherFeels').textContent=reading(c.apparent_temperature,'°C');
+ $('weatherWind').textContent=reading(c.wind_speed_10m,'km/h');
+ $('weatherGust').textContent=reading(c.wind_gusts_10m,'km/h');
+ const alerts=drivingAdvisories(c,data.hourly||{});
+ if(alerts.length===0)alerts.push({level:'calm',text:'✓ Model v kratkoročni napovedi ne kaže izrazitejših vremenskih tveganj; preveri tudi opozorila ARSO.'});
+ const box=$('weatherAdvisories');box.replaceChildren();
+ alerts.forEach(a=>{const item=document.createElement('div');item.className='weather-advisory '+a.level;item.textContent=a.text;box.appendChild(item);});
+ const when=c.time?String(c.time).replace('T',' ob '):new Date().toLocaleString('sl-SI');
+ $('weatherUpdated').textContent='Vir: Open-Meteo / ECMWF IFS 0,25° · čas napovedi '+when+' · Dobovec · *modelski sunki';
+}
+async function updateWeather(force=false){
+ if(weatherPending||(!force&&Date.now()-lastWeatherFetch<12*60*1000))return;
+ weatherPending=true;
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),12000);
+ try{
+  const r=await fetch(WEATHER_URL+'&cachebuster='+Date.now(),{cache:'no-store',signal:controller.signal});
+  if(!r.ok)throw Error('HTTP '+r.status);
+  const d=await r.json();renderWeather(d);lastWeatherFetch=Date.now();
+ }catch(e){
+  // Keep previously shown readings if a later refresh fails.
+  if(!lastWeatherFetch){$('weatherDescription').textContent='Vremenski podatki niso dosegljivi';
+   $('weatherAdvisories').innerHTML='<div class="weather-advisory">Vreme trenutno ni dosegljivo. Za opozorila preveri ARSO.</div>';}
+  else $('weatherUpdated').textContent='Vir: Open-Meteo · zadnja uspešna napoved (trenutno brez povezave)';
+ }finally{clearTimeout(timer);weatherPending=false;}
+}
+updateWeather();
+setInterval(()=>updateWeather(),15*60*1000);
+window.addEventListener('focus',()=>updateWeather());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateWeather();});
+
+// ARSO warnings are published separately by a server-side scheduled fetch.
+// The browser never treats an unreachable, stale or unverified file as "no warnings".
+const ARSO_DATA_FILE='arso-warnings.json';
+let arsoLastCheck=0;
+function arsoTextDate(iso){try{return new Date(iso).toLocaleString('sl-SI',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch{return '—';}}
+function renderArsoWarnings(data){
+ const badge=$('arsoBadge'),items=$('arsoItems'),meta=$('arsoMeta');
+ badge.className='arso-chip';items.replaceChildren();
+ const last=Date.parse(data?.fetched_at||'');
+ const now=Date.now();
+ const fresh=Number.isFinite(last)&&last<=now+5*60*1000&&now-last<3*60*60*1000;
+ const valid=data?.status==='ok'&&data?.region==='SLOVENIA_MIDDLE'&&Array.isArray(data?.warnings)&&fresh;
+ meta.textContent='Območje: Osrednja Slovenija · ARSO CAP · '+(Number.isFinite(last)?'prenos '+arsoTextDate(data.fetched_at):'še ni prenosa');
+ if(!valid){badge.textContent='NI PODATKOV';items.innerHTML='<div class="arso-item">Podatki ARSO niso dostopni ali so starejši od 3 ur. Preveri uradno stran ARSO.</div>';return;}
+ const severity={yellow:1,orange:2,red:3};
+ const parsed=data.warnings.filter(w=>{
+   const start=Date.parse(w.onset||w.effective||'');
+   const end=Date.parse(w.expires||'');
+   return Number.isFinite(start)&&Number.isFinite(end)&&end>start&&severity[w.level];
+ }).map(w=>({...w,start:Date.parse(w.onset||w.effective),end:Date.parse(w.expires)}));
+ const active=parsed.filter(w=>w.start<=now&&now<w.end).sort((a,b)=>severity[b.level]-severity[a.level]||a.end-b.end);
+ const upcoming=parsed.filter(w=>w.start>now&&w.start<=now+7*24*60*60*1000).sort((a,b)=>a.start-b.start||severity[b.level]-severity[a.level]);
+ function addWarning(w,upcomingFlag){
+   const box=document.createElement('div');box.className='arso-item'+(upcomingFlag?' upcoming':'');
+   box.style.borderLeftColor=({yellow:'#eac656',orange:'#ec9c52',red:'#ea6565'})[w.level];
+   const title=document.createElement('strong');
+   const grade={yellow:'🟡',orange:'🟠',red:'🔴'}[w.level];
+   title.textContent=grade+' '+(w.event||'Vremensko opozorilo');box.appendChild(title);
+   const info=document.createElement('span');info.textContent=w.headline||w.description||'Podrobnosti preveri pri ARSO.';box.appendChild(info);
+   const date=document.createElement('small');date.className='arso-date';
+   date.textContent=(upcomingFlag?'Napovedano: ':'Velja: ')+arsoTextDate(w.onset||w.effective)+' – '+arsoTextDate(w.expires);
+   box.appendChild(date);items.appendChild(box);
+ }
+ if(active.length){
+   const highest=active[0];badge.textContent=({yellow:'RUMENO',orange:'ORANŽNO',red:'RDEČE'})[highest.level]+' · AKTIVNO';
+   badge.classList.add(highest.level);
+   active.forEach(w=>addWarning(w,false));
+ }else{
+   badge.textContent='BREZ AKTIVNIH OPOZORIL';badge.classList.add('green');
+   const box=document.createElement('div');box.className='arso-item';
+   box.textContent='V zadnjem uspešnem prenosu ni trenutno veljavnih rumenih, oranžnih ali rdečih opozoril za osrednjo Slovenijo.';
+   items.appendChild(box);
+ }
+ if(upcoming.length){
+   const heading=document.createElement('div');heading.className='arso-future-heading';
+   heading.textContent='NAPOVEDANA OPOZORILA · NASLEDNJIH 7 DNI';items.appendChild(heading);
+   upcoming.forEach(w=>addWarning(w,true));
+ }
+}
+async function updateArsoWarnings(force=false){
+ if(!force&&Date.now()-arsoLastCheck<10*60*1000)return;
+ arsoLastCheck=Date.now();
+ try{const r=await fetch(ARSO_DATA_FILE+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);renderArsoWarnings(await r.json());}
+ catch(e){renderArsoWarnings({status:'unavailable'});}
+}
+updateArsoWarnings();setInterval(()=>updateArsoWarnings(),10*60*1000);
+window.addEventListener('focus',()=>updateArsoWarnings());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateArsoWarnings();});
+
+sync();
+</script></body></html>
