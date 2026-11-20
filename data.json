@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated": "2026-11-20T13:12:27.706Z",
+  "updated": "2026-11-20T21:18:02.730Z",
   "fuel": [
     {
       "Datum": "16. 10. 2026",
@@ -67,6 +67,17 @@
       "Opomba": "Tankano do vrha (potrjeno). 44,570 l na 481 km od prejšnjega tankanja do vrha = 9,27 l/100 km. BC od točenja: 480 km in 9,4 l/100 km. Račun: 67,12 € pred popustom, 0,45 € popusta, plačano 66,67 €.",
       "Kilometri": "55927",
       "BC poraba (l/100 km)": "9,4"
+    },
+    {
+      "Datum": "20. 11. 2026",
+      "Črpalka": "MOL Letuš, Šmartno ob Paki",
+      "Gorivo": "EVO 95",
+      "Cena (€/l)": "1,44",
+      "Znesek (€)": "61,77",
+      "Litri (izračun)": "43,08",
+      "Opomba": "Tankano do vrha (potrjeno). Od prejšnjega polnega tankanja 12. 11. 2026: 484 km, 43,080 l, dejanska poraba 8,90 l/100 km. Račun 20. 11. 2026 16:03:37: 62,21 € pred popustom, popust 0,44 €, plačano 61,77 €. Fotografija BC: 9,1 l/100 km 'Od zagona' (60 km), ne od točenja.",
+      "Kilometri": "56411",
+      "BC poraba (l/100 km)": ""
     }
   ],
   "costs": [
