@@ -2,23 +2,6 @@
   "status": "ok",
   "region": "SLOVENIA_MIDDLE",
   "source": "https://meteo.arso.gov.si/uploads/probase/www/warning/text/sl/warning_SLOVENIA_MIDDLE_latest_CAP.xml",
-  "fetched_at": "2026-11-20T03:01:50.335337+00:00",
-  "warnings": [
-    {
-      "level": "yellow",
-      "event": "Veter - zmerna ogroženost",
-      "headline": "Veter - zmerna ogroženost (Stopnja 2/4) - Slovenija / osrednja",
-      "description": "Maksimalna hitrost vetra : od 50 do 70 km/h. Veter maje drevesa, lahko lomi manjše veje.",
-      "onset": "2026-11-19T14:00:00+01:00",
-      "expires": "2026-11-19T17:59:00+01:00"
-    },
-    {
-      "level": "yellow",
-      "event": "Dež - zmerna ogroženost",
-      "headline": "Dež - zmerna ogroženost (Stopnja 2/4) - Slovenija / osrednja",
-      "description": "Možne so izdatnejše padavine.  Količina padavin : od 25 do 50 mm/24h. Vodotoki lahko prestopijo na območjih vsakoletnih poplav. Plavje lahko zamaši določene rečne prepuste.",
-      "onset": "2026-11-19T10:00:00+01:00",
-      "expires": "2026-11-19T18:59:00+01:00"
-    }
-  ]
+  "fetched_at": "2026-11-20T11:23:23.789687+00:00",
+  "warnings": []
 }
