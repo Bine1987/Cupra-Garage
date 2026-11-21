@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "updated": "2026-11-21T10:08:57.692Z",
+  "updated": "2026-11-21T17:39:31.229Z",
   "fuel": [
     {
       "Datum": "16. 10. 2026",
@@ -78,6 +78,17 @@
       "Opomba": "Tankano do vrha (potrjeno). Od prejšnjega polnega tankanja 12. 11. 2026: 484 km, 43,080 l, dejanska poraba 8,90 l/100 km. Račun 20. 11. 2026 16:03:37: 62,21 € pred popustom, popust 0,44 €, plačano 61,77 €. Fotografija BC: 9,1 l/100 km 'Od zagona' (60 km), ne od točenja.",
       "Kilometri": "56411",
       "BC poraba (l/100 km)": ""
+    },
+    {
+      "Datum": "21. 11. 2026",
+      "Črpalka": "MOL Ilirska Bistrica",
+      "Gorivo": "EVO 95",
+      "Cena (€/l)": "1,44",
+      "Znesek (€)": "55,05",
+      "Litri (izračun)": "38,39",
+      "Opomba": "Tankano do vrha (potrjeno). 436 km od prejšnjega polnega tankanja (20. 11.); dejanska poraba 8,81 l/100 km. BC od točenja 435 km in 8,9 l/100 km. Račun 21. 11. 2026 16:56:54: 55,44 € pred popustom, popust 0,39 €.",
+      "Kilometri": "56847",
+      "BC poraba (l/100 km)": "8,9"
     }
   ],
   "costs": [
