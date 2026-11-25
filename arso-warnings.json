@@ -2,7 +2,7 @@
   "status": "ok",
   "region": "SLOVENIA_MIDDLE",
   "source": "https://meteo.arso.gov.si/uploads/probase/www/warning/text/sl/warning_SLOVENIA_MIDDLE_latest_CAP.xml",
-  "fetched_at": "2026-11-24T21:28:54.310689+00:00",
+  "fetched_at": "2026-11-25T04:32:29.699140+00:00",
   "warnings": [
     {
       "level": "yellow",
