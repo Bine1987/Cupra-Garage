@@ -2,23 +2,23 @@
   "status": "ok",
   "region": "SLOVENIA_MIDDLE",
   "source": "https://meteo.arso.gov.si/uploads/probase/www/warning/text/sl/warning_SLOVENIA_MIDDLE_latest_CAP.xml",
-  "fetched_at": "2026-11-25T04:32:29.699140+00:00",
+  "fetched_at": "2026-11-25T14:52:55.968468+00:00",
   "warnings": [
     {
       "level": "yellow",
       "event": "Sneg - zmerna ogroženost",
       "headline": "Sneg - zmerna ogroženost (Stopnja 2/4) - Slovenija / osrednja",
       "description": "",
-      "onset": "2026-11-26T02:00:00+01:00",
-      "expires": "2026-11-26T09:59:00+01:00"
+      "onset": "2026-11-26T05:00:00+01:00",
+      "expires": "2026-11-26T11:59:00+01:00"
     },
     {
       "level": "yellow",
       "event": "Poledica/žled - zmerna ogroženost",
       "headline": "Poledica/žled - zmerna ogroženost (Stopnja 2/4) - Slovenija / osrednja",
-      "description": "Poledica/žled.  Ceste in pločniki so lahko poledeneli. Lahko se lomijo manjše veje.",
-      "onset": "2026-11-25T00:00:00+01:00",
-      "expires": "2026-11-25T07:59:00+01:00"
+      "description": "Poledica/žled.   med 500 in 1000 m Ceste in pločniki so lahko poledeneli. Lahko se lomijo manjše veje.",
+      "onset": "2026-11-26T03:00:00+01:00",
+      "expires": "2026-11-26T05:59:00+01:00"
     }
   ]
 }
